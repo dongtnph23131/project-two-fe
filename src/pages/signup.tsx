@@ -152,7 +152,7 @@ const SignupPage = () => {
                 </FormItem>
               )}
             />
-            <Button>{isLoading ? "Loading" : "Signup"}</Button>
+            <Button>{isLoading ? "Loading ... " : "Signup"}</Button>
           </form>
         </Form>
       </div>

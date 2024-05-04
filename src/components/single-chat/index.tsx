@@ -11,8 +11,6 @@ const SingleChat = ({ setFetchAgain, fetchAgain }: any) => {
     setNotification,
     selectedChatNoMess,
   }: any = useContext(ChatContext);
-  console.log(selectedChatNoMess);
-
   const [user, _] = useState(JSON.parse(localStorage.getItem("user")!));
   const [value, setValue] = useState("");
   const { toast } = useToast();

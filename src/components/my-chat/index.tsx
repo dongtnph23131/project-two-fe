@@ -14,6 +14,7 @@ const MyChat = ({ fetchAgain }: any) => {
   const { toast } = useToast();
   const token = JSON.parse(localStorage.getItem("token")!);
   const user = JSON.parse(localStorage.getItem("user")!);
+  const [lengthChat,setLengthChat]=useState()
   const {
     setSelectedChat,
     selectedChat,
@@ -35,6 +36,8 @@ const MyChat = ({ fetchAgain }: any) => {
           }
         );
         setChats(response?.data);
+        setLengthChat(response?.data?.filter((item:any)=>!!item?.lastMessage).length);
+        
       } catch (error) {
         toast({
           variant: "destructive",
@@ -46,7 +49,7 @@ const MyChat = ({ fetchAgain }: any) => {
   return (
     <div className="w-1/2 px-5 py-5 border-r border-gray-300">
       <div className="p-4 flex justify-between items-center text-gray-500">
-        <h1 className="text-2xl font-semibold">Chat Web ({chats?.length})</h1>
+        <h1 className="text-2xl font-semibold">Chat Web ({lengthChat})</h1>
         <Popover>
           <PopoverTrigger onClick={() => setIsSearch(true)}>
             <svg
