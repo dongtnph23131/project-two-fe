@@ -64,8 +64,9 @@ const SingleChat = ({ setFetchAgain, fetchAgain }: any) => {
     }
   };
   useEffect(() => {
+   
     socket.on("message recieved", (newMessageRecieved: any) => {
-      if (selectedChat?.length > 0) {
+      if (selectedChat?.length > 0) {  
         setSelectedChat([...selectedChat, newMessageRecieved]);
       } else {
         setFetchAgain(!fetchAgain);
