@@ -51,18 +51,20 @@ const SignupPage = () => {
   const submitForm = async (user: any) => {
     setIsLoading(true);
     try {
-        const response = await axios.post(
-          "http://localhost:8080/api/v1/signup",
-          user
-        );
+      const response = await axios.post(
+        "http://localhost:8080/api/v1/signup",
+        user
+      );
+      console.log(response);
+
       toast({
         description: response?.data?.message || "Đăng ký thàng công",
       });
       navigate("/signin");
-    } catch (error) {
+    } catch (error: any) {
       toast({
         variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        title: error?.response?.data?.message,
       });
     } finally {
       setIsLoading(false);

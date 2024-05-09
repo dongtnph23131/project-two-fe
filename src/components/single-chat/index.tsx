@@ -7,9 +7,9 @@ const SingleChat = ({ setFetchAgain, fetchAgain }: any) => {
   const {
     selectedChat,
     setSelectedChat,
+    selectedChatNoMess,
     notification,
     setNotification,
-    selectedChatNoMess,
   }: any = useContext(ChatContext);
   const [user, _] = useState(JSON.parse(localStorage.getItem("user")!));
   const [value, setValue] = useState("");
@@ -56,24 +56,24 @@ const SingleChat = ({ setFetchAgain, fetchAgain }: any) => {
       setSelectedChat([...selectedChat, response?.data]);
       setValue("");
       setFetchAgain(!fetchAgain);
-    } catch (error) {
+    } catch (error: any) {
       toast({
         variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        title: error?.response?.data?.message,
       });
     }
   };
   useEffect(() => {
-   
     socket.on("message recieved", (newMessageRecieved: any) => {
-      if (selectedChat?.length > 0) {  
+      if (selectedChat?.length > 0) {
         setSelectedChat([...selectedChat, newMessageRecieved]);
-      } else {
         setFetchAgain(!fetchAgain);
+      } else {
         setNotification([...notification, newMessageRecieved]);
+        setFetchAgain(!fetchAgain);
       }
     });
-  });
+  }, [fetchAgain, selectedChat]);
   return (
     <>
       {selectedChat?.length > 0 ? (

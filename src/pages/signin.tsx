@@ -49,10 +49,10 @@ const SigninPage = () => {
       localStorage.setItem("user", JSON.stringify(response.data.user));
       localStorage.setItem("token", JSON.stringify(response.data.token));
       navigate("/");
-    } catch (error) {
+    } catch (error: any) {
       toast({
         variant: "destructive",
-        title: "Uh oh! Something went wrong.",
+        title: error?.response?.data?.message,
       });
     } finally {
       setIsLoading(false);

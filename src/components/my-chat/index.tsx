@@ -14,7 +14,7 @@ const MyChat = ({ fetchAgain }: any) => {
   const { toast } = useToast();
   const token = JSON.parse(localStorage.getItem("token")!);
   const user = JSON.parse(localStorage.getItem("user")!);
-  const [lengthChat,setLengthChat]=useState()
+  const [lengthChat, setLengthChat] = useState();
   const {
     setSelectedChat,
     selectedChat,
@@ -36,12 +36,13 @@ const MyChat = ({ fetchAgain }: any) => {
           }
         );
         setChats(response?.data);
-        setLengthChat(response?.data?.filter((item:any)=>!!item?.lastMessage).length);
-        
-      } catch (error) {
+        setLengthChat(
+          response?.data?.filter((item: any) => !!item?.lastMessage).length
+        );
+      } catch (error: any) {
         toast({
           variant: "destructive",
-          title: "Uh oh! Something went wrong.",
+          title: error?.response?.data?.message,
         });
       }
     })();
@@ -79,10 +80,10 @@ const MyChat = ({ fetchAgain }: any) => {
                           (item: any) => item?._id !== user?._id
                         )
                       );
-                    } catch (error) {
+                    } catch (error: any) {
                       toast({
                         variant: "destructive",
-                        title: "Uh oh! Something went wrong.",
+                        title: error?.response?.data?.message,
                       });
                     }
                   }}
@@ -96,7 +97,7 @@ const MyChat = ({ fetchAgain }: any) => {
                       return (
                         <div
                           key={index + 1}
-                          className="grid grid-cols-2 gap-2"
+                          className="flex gap-5"
                           onClick={async () => {
                             const chatId = chats?.find((itemMap: any) => {
                               return itemMap?.users?.find(
@@ -135,15 +136,15 @@ const MyChat = ({ fetchAgain }: any) => {
                                 setIsSearch(false);
                                 setData([]);
                               }
-                            } catch (error) {
+                            } catch (error: any) {
                               toast({
                                 variant: "destructive",
-                                title: "Uh oh! Something went wrong.",
+                                title: error?.response?.data?.message,
                               });
                             }
                           }}
                         >
-                          <div className="w-12 h-12 bg-gray-300 rounded-full mr-3">
+                          <div className="w-12 h-12 bg-gray-300 rounded-full">
                             <img
                               src={item?.avatar}
                               alt="User Avatar"
@@ -151,7 +152,7 @@ const MyChat = ({ fetchAgain }: any) => {
                             />
                           </div>
                           <div className="flex-1">
-                            <h2 className="text-lg font-semibold">
+                            <h2 className="text-lg font-semibold mt-2">
                               {item?.name}
                             </h2>
                           </div>
@@ -176,7 +177,7 @@ const MyChat = ({ fetchAgain }: any) => {
               itemNotification?.chatId?._id == item?._id
           );
           if (!item?.lastMessage) {
-            return "";
+            return;
           }
           return (
             <div
@@ -196,10 +197,10 @@ const MyChat = ({ fetchAgain }: any) => {
                       (n: any) => n?.chatId?._id !== item?._id
                     )
                   );
-                } catch (error) {
+                } catch (error: any) {
                   toast({
                     variant: "destructive",
-                    title: "Uh oh! Something went wrong.",
+                    title: error?.response?.data?.message,
                   });
                 }
               }}
@@ -214,7 +215,7 @@ const MyChat = ({ fetchAgain }: any) => {
                     )[0]?.avatar
                   }
                   alt="User Avatar"
-                  className="w-12 h-12 rounded-full"
+                  className="w-full h-full rounded-full"
                 />
               </div>
               <div className="flex-1">
@@ -231,7 +232,7 @@ const MyChat = ({ fetchAgain }: any) => {
                   }`}
                 >
                   {item?.lastMessage?.sender === user?._id ? "Bạn : " : ""}
-                  {item?.lastMessage?.content}
+                  {item?.lastMessage?.content?.substring(0, 25)} ...
                 </p>
               </div>
             </div>

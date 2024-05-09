@@ -15,7 +15,7 @@ const TheHeader = () => {
   const navigate=useNavigate()
   return (
     <div className="flex justify-between max-w-5xl w-full items-center">
-      <a className="text-4xl font-bold text-indigo-400">shadcn-chat</a>
+      <a className="text-4xl font-bold text-gray-400">shadcn-chat</a>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="relative h-8 w-8 rounded-full">
