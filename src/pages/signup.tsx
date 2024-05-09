@@ -52,7 +52,7 @@ const SignupPage = () => {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/v1/signup",
+        "https://project-two-be.onrender.com/api/v1/signup",
         user
       );
       console.log(response);

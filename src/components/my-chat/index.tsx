@@ -28,7 +28,7 @@ const MyChat = ({ fetchAgain }: any) => {
     (async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/v1/fetchs/chat-by-user",
+          "https://project-two-be.onrender.com/api/v1/fetchs/chat-by-user",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -73,7 +73,7 @@ const MyChat = ({ fetchAgain }: any) => {
                         return;
                       }
                       const response = await axios.get(
-                        `http://localhost:8080/api/v1/users/search-name?search=${e.target.value}`
+                        `https://project-two-be.onrender.com/api/v1/users/search-name?search=${e.target.value}`
                       );
                       setData(
                         response?.data.filter(
@@ -109,7 +109,7 @@ const MyChat = ({ fetchAgain }: any) => {
                               let response;
                               if (selectedChat?.length === 0) {
                                 response = await axios.post(
-                                  "http://localhost:8080/api/v1/assess-chat",
+                                  "https://project-two-be.onrender.com/api/v1/assess-chat",
                                   {
                                     userId: item?._id,
                                   },
@@ -125,7 +125,7 @@ const MyChat = ({ fetchAgain }: any) => {
                                 return;
                               } else {
                                 response = await axios.get(
-                                  `http://localhost:8080/api/v1/get-message-by-chat-id/${chatId?._id}`,
+                                  `https://project-two-be.onrender.com/api/v1/get-message-by-chat-id/${chatId?._id}`,
                                   {
                                     headers: {
                                       Authorization: `Bearer ${token}`,
@@ -184,7 +184,7 @@ const MyChat = ({ fetchAgain }: any) => {
               onClick={async () => {
                 try {
                   const response = await axios.get(
-                    `http://localhost:8080/api/v1/get-message-by-chat-id/${item?._id}`,
+                    `https://project-two-be.onrender.com/api/v1/get-message-by-chat-id/${item?._id}`,
                     {
                       headers: {
                         Authorization: `Bearer ${token}`,
