@@ -13,12 +13,13 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useToast } from "@/components/ui/use-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 const formSchema = z.object({
   email: z.string().email({
-    message: "Sai địng dạng email",
+    message: "Sai định dạng email",
   }),
   password: z.string().min(6, {
     message: "Cần nhập mật khẩu trên 6 kí tự",
@@ -44,7 +45,7 @@ const SigninPage = () => {
         user
       );
       toast({
-        description: response?.data?.message || "Đăng nhập thàng công",
+        description: response?.data?.message || "Đăng nhập thành công",
       });
       localStorage.setItem("user", JSON.stringify(response.data.user));
       localStorage.setItem("token", JSON.stringify(response.data.token));
@@ -63,7 +64,7 @@ const SigninPage = () => {
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img className="mx-auto h-10 w-auto" src={Logo} alt="Your Company" />
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          Sign in to your account
+          Đăng nhập tài khoản
         </h2>
       </div>
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -99,7 +100,16 @@ const SigninPage = () => {
                 </FormItem>
               )}
             />
-            <Button>{isLoading ? "Loading ..." : "Signin"}</Button>
+            <Button>
+              {isLoading ? (
+                <AiOutlineLoading3Quarters className="animate-spin" />
+              ) : (
+                "Đăng nhập"
+              )}
+            </Button>
+            <Link className="mx-5" to={"/signup"}>
+              <Button>Đăng ký tài khoản</Button>
+            </Link>
           </form>
         </Form>
       </div>

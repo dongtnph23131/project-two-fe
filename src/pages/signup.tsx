@@ -13,13 +13,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useToast } from "@/components/ui/use-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 const formSchema = z
   .object({
     email: z.string().email({
-      message: "Sai địng dạng email",
+      message: "Sai định dạng email",
     }),
     name: z.string().min(6, {
       message: "Cần nhập tên  trên 6 kí tự",
@@ -55,10 +56,8 @@ const SignupPage = () => {
         "https://project-two-be.onrender.com/api/v1/signup",
         user
       );
-      console.log(response);
-
       toast({
-        description: response?.data?.message || "Đăng ký thàng công",
+        description: response?.data?.message || "Đăng ký thành công",
       });
       navigate("/signin");
     } catch (error: any) {
@@ -75,7 +74,7 @@ const SignupPage = () => {
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img className="mx-auto h-10 w-auto" src={Logo} alt="Your Company" />
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-          Sign in to your account
+          Đăng ký tài khoản
         </h2>
       </div>
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -99,9 +98,9 @@ const SignupPage = () => {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Tên tài khoản</FormLabel>
                   <FormControl>
-                    <Input placeholder="Nhập name" {...field} />
+                    <Input placeholder="Nhập tên tài khoản" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -154,7 +153,16 @@ const SignupPage = () => {
                 </FormItem>
               )}
             />
-            <Button>{isLoading ? "Loading ... " : "Signup"}</Button>
+            <Button>
+              {isLoading ? (
+                <AiOutlineLoading3Quarters className="animate-spin" />
+              ) : (
+                "Đăng ký tài khoản"
+              )}
+            </Button>
+            <Link className="mx-5" to={"/signin"}>
+              <Button>Đăng nhập</Button>
+            </Link>
           </form>
         </Form>
       </div>
