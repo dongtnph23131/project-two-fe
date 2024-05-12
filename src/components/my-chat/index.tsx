@@ -8,6 +8,7 @@ import { useContext, useEffect, useState } from "react";
 import { ChatContext } from "@/context";
 import { useToast } from "../ui/use-toast";
 import axios from "axios";
+import uri_Api from "@/config/uri-api";
 const MyChat = ({ fetchAgain }: any) => {
   const [isSearch, setIsSearch] = useState(false);
   const [data, setData] = useState([]);
@@ -27,7 +28,7 @@ const MyChat = ({ fetchAgain }: any) => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get(`${uri_Api()}/fetchs/chat-by-user`, {
+        const response = await axios.get(`${uri_Api()}/api/v1/fetchs/chat-by-user`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -70,7 +71,7 @@ const MyChat = ({ fetchAgain }: any) => {
                         return;
                       }
                       const response = await axios.get(
-                        `${uri_Api()}/users/search-name?search=${
+                        `${uri_Api()}/api/v1/users/search-name?search=${
                           e.target.value
                         }`
                       );
@@ -108,7 +109,7 @@ const MyChat = ({ fetchAgain }: any) => {
                               let response;
                               if (selectedChat?.length === 0) {
                                 response = await axios.post(
-                                  `${uri_Api()}/assess-chat`,
+                                  `${uri_Api()}/api/v1/assess-chat`,
                                   {
                                     userId: item?._id,
                                   },
@@ -124,7 +125,7 @@ const MyChat = ({ fetchAgain }: any) => {
                                 return;
                               } else {
                                 response = await axios.get(
-                                  `${uri_Api()}/get-message-by-chat-id/${
+                                  `${uri_Api()}/api/v1/get-message-by-chat-id/${
                                     chatId?._id
                                   }`,
                                   {
@@ -185,7 +186,7 @@ const MyChat = ({ fetchAgain }: any) => {
               onClick={async () => {
                 try {
                   const response = await axios.get(
-                    `${uri_Api()}/get-message-by-chat-id/${item?._id}`,
+                    `${uri_Api()}/api/v1/get-message-by-chat-id/${item?._id}`,
                     {
                       headers: {
                         Authorization: `Bearer ${token}`,

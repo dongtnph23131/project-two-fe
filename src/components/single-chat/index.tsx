@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { useToast } from "../ui/use-toast";
 import axios from "axios";
 import { socket } from "@/socket";
+import uri_Api from "@/config/uri-api";
 const SingleChat = ({ setFetchAgain, fetchAgain }: any) => {
   const {
     selectedChat,
@@ -33,7 +34,7 @@ const SingleChat = ({ setFetchAgain, fetchAgain }: any) => {
       let response;
       if (selectedChat?.length > 0) {
         response = await axios.post(
-          `${uri_Api()}/send-message`,
+          `${uri_Api()}/api/v1/send-message`,
           { content: value, chatId: selectedChat[0]?.chatId?._id },
           {
             headers: {
@@ -43,7 +44,7 @@ const SingleChat = ({ setFetchAgain, fetchAgain }: any) => {
         );
       } else {
         response = await axios.post(
-          `${uri_Api()}/send-message`,
+          `${uri_Api()}/api/v1/send-message`,
           { content: value, chatId: selectedChatNoMess?._id },
           {
             headers: {
@@ -66,6 +67,12 @@ const SingleChat = ({ setFetchAgain, fetchAgain }: any) => {
   useEffect(() => {
     socket.on("message recieved", (newMessageRecieved: any) => {
       if (selectedChat?.length > 0) {
+        setNotification(
+          notification.filter(
+            (item: any) => item?._id !== newMessageRecieved?._id
+          )
+        );
+
         setSelectedChat([...selectedChat, newMessageRecieved]);
         setFetchAgain(!fetchAgain);
       } else {

@@ -17,6 +17,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import uri_Api from "@/config/uri-api";
 const formSchema = z
   .object({
     email: z.string().email({
@@ -52,7 +53,7 @@ const SignupPage = () => {
   const submitForm = async (user: any) => {
     setIsLoading(true);
     try {
-      const response = await axios.post(`${uri_Api()}/signup`, user);
+      const response = await axios.post(`${uri_Api()}/api/v1/signup`, user);
       toast({
         description: response?.data?.message || "Đăng ký thành công",
       });
