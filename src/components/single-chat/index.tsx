@@ -33,7 +33,7 @@ const SingleChat = ({ setFetchAgain, fetchAgain }: any) => {
       let response;
       if (selectedChat?.length > 0) {
         response = await axios.post(
-          `https://project-two-be.onrender.com/api/v1/send-message`,
+          `${uri_Api()}/send-message`,
           { content: value, chatId: selectedChat[0]?.chatId?._id },
           {
             headers: {
@@ -43,7 +43,7 @@ const SingleChat = ({ setFetchAgain, fetchAgain }: any) => {
         );
       } else {
         response = await axios.post(
-          `https://project-two-be.onrender.com/api/v1/send-message`,
+          `${uri_Api()}/send-message`,
           { content: value, chatId: selectedChatNoMess?._id },
           {
             headers: {

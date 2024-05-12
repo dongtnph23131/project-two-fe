@@ -52,10 +52,7 @@ const SignupPage = () => {
   const submitForm = async (user: any) => {
     setIsLoading(true);
     try {
-      const response = await axios.post(
-        "https://project-two-be.onrender.com/api/v1/signup",
-        user
-      );
+      const response = await axios.post(`${uri_Api()}/signup`, user);
       toast({
         description: response?.data?.message || "Đăng ký thành công",
       });

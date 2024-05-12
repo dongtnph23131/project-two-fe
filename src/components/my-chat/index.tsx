@@ -27,14 +27,11 @@ const MyChat = ({ fetchAgain }: any) => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get(
-          "https://project-two-be.onrender.com/api/v1/fetchs/chat-by-user",
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await axios.get(`${uri_Api()}/fetchs/chat-by-user`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setChats(response?.data);
         setLengthChat(
           response?.data?.filter((item: any) => !!item?.lastMessage).length
@@ -73,7 +70,9 @@ const MyChat = ({ fetchAgain }: any) => {
                         return;
                       }
                       const response = await axios.get(
-                        `https://project-two-be.onrender.com/api/v1/users/search-name?search=${e.target.value}`
+                        `${uri_Api()}/users/search-name?search=${
+                          e.target.value
+                        }`
                       );
                       setData(
                         response?.data.filter(
@@ -109,7 +108,7 @@ const MyChat = ({ fetchAgain }: any) => {
                               let response;
                               if (selectedChat?.length === 0) {
                                 response = await axios.post(
-                                  "https://project-two-be.onrender.com/api/v1/assess-chat",
+                                  `${uri_Api()}/assess-chat`,
                                   {
                                     userId: item?._id,
                                   },
@@ -125,7 +124,9 @@ const MyChat = ({ fetchAgain }: any) => {
                                 return;
                               } else {
                                 response = await axios.get(
-                                  `https://project-two-be.onrender.com/api/v1/get-message-by-chat-id/${chatId?._id}`,
+                                  `${uri_Api()}/get-message-by-chat-id/${
+                                    chatId?._id
+                                  }`,
                                   {
                                     headers: {
                                       Authorization: `Bearer ${token}`,
@@ -184,7 +185,7 @@ const MyChat = ({ fetchAgain }: any) => {
               onClick={async () => {
                 try {
                   const response = await axios.get(
-                    `https://project-two-be.onrender.com/api/v1/get-message-by-chat-id/${item?._id}`,
+                    `${uri_Api()}/get-message-by-chat-id/${item?._id}`,
                     {
                       headers: {
                         Authorization: `Bearer ${token}`,

@@ -40,10 +40,7 @@ const SigninPage = () => {
   const submitForm = async (user: any) => {
     setIsLoading(true);
     try {
-      const response = await axios.post(
-        "https://project-two-be.onrender.com/api/v1/signin",
-        user
-      );
+      const response = await axios.post(`${uri_Api()}/signin`, user);
       toast({
         description: response?.data?.message || "Đăng nhập thành công",
       });
